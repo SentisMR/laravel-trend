@@ -3,6 +3,7 @@
 namespace Flowframe\Trend\Adapters;
 
 use Error;
+use Illuminate\Database\Query\Grammars\MySqlGrammar;
 
 class MySqlAdapter extends AbstractAdapter
 {
@@ -17,7 +18,8 @@ class MySqlAdapter extends AbstractAdapter
             'year' => '%Y',
             default => throw new Error('Invalid interval.'),
         };
-
-        return "date_format({$column}, '{$format}')";
+        
+        $wrappedColumn = (new MySqlGrammar)->wrap($column);
+        return "date_format({$wrappedColumn}, '{$format}')";
     }
 }

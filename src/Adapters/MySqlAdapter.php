@@ -18,6 +18,6 @@ class MySqlAdapter extends AbstractAdapter
             default => throw new Error('Invalid interval.'),
         };
         
-        return "date_format({$wrappedColumn}, '{$format}')";
+        return "date_format({$column}, '{$format}')";
     }
 }
